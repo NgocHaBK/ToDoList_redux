@@ -1,6 +1,31 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+// import { loadData } from "./LocalData";
+export default function ToDoList({ onhandleUpdate }) {
+  let dispatch = useDispatch();
+  let arrUsers = useSelector((state) => {
+    console.log("state 7 todolist:",state)
+    return state.UserReducer;
+  }
+  );
 
-export default function ToDoList({ items, onhandleUpdate, onhandleDelete }) {
+  console.log("ArrUser 8: ", arrUsers);
+
+  // useEffect(() => {
+  //   const dataFromLocal = loadData();
+  //   console.log("@@ 10 todolist :", dataFromLocal);
+  //   if (dataFromLocal.users) {
+  //     for (let data of dataFromLocal.users) {
+  //       console.log("bên trong hàm foreach 14 todo", data);
+  //       dispatch({ type: "ADD_USER", payload: data });
+  //     }
+  //   }
+  // }, [dispatch]);
+
+  function handleDelete(id) {
+    dispatch({ type: "REMOVE_USER", payload: { id } });
+  }
+  console.log("render todolist 23");
   return (
     <>
       <div className="row container mx-auto">
@@ -22,7 +47,7 @@ export default function ToDoList({ items, onhandleUpdate, onhandleDelete }) {
             </tr>
           </thead>
           <tbody>
-            {(items || []).map((item, index) => {
+            {(arrUsers || []).map((item, index) => {
               return (
                 <tr key={index}>
                   <td>{item.name}</td>
@@ -35,14 +60,14 @@ export default function ToDoList({ items, onhandleUpdate, onhandleDelete }) {
                     <button
                       className="btn btn-warning"
                       onClick={() => {
-                        onhandleUpdate(item.id);
+                        onhandleUpdate(item.id, arrUsers);
                       }}
                     >
                       Update
                     </button>
                     <button
                       className="btn btn-danger ms-2"
-                      onClick={() => onhandleDelete(item.id)}
+                      onClick={() => handleDelete(item.id)}
                     >
                       X
                     </button>

@@ -1,12 +1,12 @@
 import React from "react";
-import style from "./doctor_form.module.css";
+import style from "../component/doctor_form.module.css"
 export default function InputForm({ item, onhandleChange, onSubmit_ }) {
   return (
     <div className={style.doctorform}>
       <div className={`${style.container} ${style.doctorform}`}>
         <header className={style.doctorform}>DOCTOR'S INFORMATION</header>
 
-        <form onSubmit={onSubmit_}>
+        <form onSubmit={e => onSubmit_(e)}>
           <div className={`form first`}>
             <div className={`${style.detail} personal`}>
               <span className={style.title}>Information About The Doctor</span>
